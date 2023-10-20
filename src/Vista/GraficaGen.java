@@ -92,7 +92,7 @@ public class GraficaGen extends JFrame {
                 tokens = linea.split(";");
                 switch(tokens[8]){
                     case "M":     contadores[0]++; break;
-                    case "H":     contadores[1]++; break;
+                    case "F":     contadores[1]++; break;
 
                     }
                 }
