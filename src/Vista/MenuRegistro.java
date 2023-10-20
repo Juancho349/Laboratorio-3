@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
@@ -21,8 +22,9 @@ import javax.swing.border.EtchedBorder;
 public class MenuRegistro extends JFrame{
     public MenuPrincipal mp;
     public JButton jbreturnm,jbGuardar,jblimp;
-    public JTextField jtApe,jtnam,jtCod,jtcontra,jtcorreo,tlf,jtedad,jtgenero;
+    public JTextField jtApe,jtnam,jtCod,jtcorreo,tlf,jtedad,jtgenero;
     public JComboBox<String> jcargo;
+    public JPasswordField jtcontra;
     public MenuRegistro(MenuPrincipal obj){
         super("Menu formulario  ");
         this.mp=obj;
@@ -56,6 +58,7 @@ public class MenuRegistro extends JFrame{
         jtApe= new JTextField();
         jtApe.setBounds(160, 80, 200, 30);
         jtApe.setDocument(new LimitadorCaracteres(jtApe,15,1));
+        jtApe.setVisible(true);
         add(jtApe);
         
         JLabel jlnam= new JLabel("Nombre:");
@@ -65,6 +68,7 @@ public class MenuRegistro extends JFrame{
         jtnam= new JTextField();
         jtnam.setBounds(160, 130, 200, 30);
         jtnam.setDocument(new LimitadorCaracteres(jtnam,15,1));
+        jtnam.setVisible(true);
         add(jtnam);
         
         JLabel jlcorr= new JLabel("Correo:");
@@ -73,6 +77,7 @@ public class MenuRegistro extends JFrame{
         
         jtcorreo= new JTextField();
         jtcorreo.setBounds(160, 230, 200, 30);
+        jtcorreo.setVisible(true);
         add(jtcorreo);
         
         JLabel jltelefono= new JLabel("Telefono:");
@@ -82,14 +87,17 @@ public class MenuRegistro extends JFrame{
         tlf= new JTextField();
         tlf.setBounds(160, 270, 200, 30);
         tlf.setDocument(new LimitadorCaracteres(tlf,10,0));
+        tlf.setVisible(true);
         add(tlf);
         
         JLabel jlestr= new JLabel("Contraseña:");
         jlestr.setBounds(40,180,120,30);
         
         add(jlestr);
-        jtcontra = new JTextField();
+        jtcontra = new JPasswordField();
         jtcontra.setBounds(160, 180, 200, 30);
+        jtcontra.setEchoChar('*');
+        jtcontra.setVisible(true);
         
        
         add(jtcontra);
@@ -100,6 +108,7 @@ public class MenuRegistro extends JFrame{
         jtgenero = new JTextField();
         jtgenero.setBounds(460, 40, 200, 30);
         jtgenero.setDocument(new LimitadorCaracteres(jtgenero,1,1));
+        jtgenero.setVisible(true);
         add(jtgenero);
         
         JLabel jledad = new JLabel("Edad:");
@@ -108,6 +117,7 @@ public class MenuRegistro extends JFrame{
         jtedad = new JTextField();
         jtedad.setBounds(460, 80, 200, 30);
         jtedad.setDocument(new LimitadorCaracteres(jtedad,2,0));
+        jtedad.setVisible(true);
         add(jtedad);
         
         
@@ -123,6 +133,7 @@ public class MenuRegistro extends JFrame{
         jcargo.addItem("Cliente");
         jcargo.addItem("Gestor de ventas");
         jcargo.setBounds(160, 310, 120, 30);
+        jcargo.setVisible(true);
         add(jcargo);
         
         jbGuardar = new JButton("Guardar");
