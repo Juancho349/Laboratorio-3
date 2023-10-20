@@ -100,7 +100,7 @@ public class ControladorLog implements ActionListener{
                 }// fin while
                 if (!existe) {
                     JOptionPane.showMessageDialog(null, 
-                        "el  usuario" + login + " no existe");
+                        "el  usuario" + login + " no existe/ Contraseña incorrecta");
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, 
