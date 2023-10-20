@@ -12,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,22 +42,13 @@ public class ControlMenuR implements ActionListener{
         if(e.getSource().equals(fm.jbGuardar)){
 
             guardar();
-            int resp = JOptionPane.showConfirmDialog(fm,"Se guardo corretamente.\nDesea Agregar otra persona?  ","confirmacion",  JOptionPane.YES_NO_OPTION);
-            if (resp== JOptionPane.YES_OPTION) {
-                limpiar();
-                
-                
-            }else{
-                volver();
-            }
-
-            
         }
     }
     
     private void guardar (){
         FileWriter fw = null;
         boolean error = false;
+        boolean existe = false;
        
         try {
             fw = new FileWriter(
@@ -66,22 +59,26 @@ public class ControlMenuR implements ActionListener{
                 e + "\n\nError al tratar de crear/abrir el archivo");            
         }
         if(!error){
-            
-            String ape = fm.jtApe.getText();
-            String nom = fm.jtnam.getText();
-            String contra = fm.jtcontra.getText();
-            String correo= fm.jtcorreo.getText();
-            String genero = fm.jtgenero.getText();
-            int edad = Integer.parseInt(fm.jtedad.getText());
-            int tlf = Integer.parseInt(fm.tlf.getText());
             int cod = Integer.parseInt(fm.jtCod.getText());
-            String cargo = (String) fm.jcargo.getSelectedItem();
-
-            
-            try {
+            if (!validar_codigo(cod)){
+                if(fm.jtApe.getText().isEmpty() || fm.jtnam.getText().isEmpty() || fm.jtcontra.getText().isEmpty() || fm.jtcorreo.getText().isEmpty() || fm.jtgenero.getText().isEmpty() ||  fm.jtedad.getText().isEmpty() || fm.tlf.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Los campos no pueden estar vacios");
+                    
+                }else{
+                    String ape = fm.jtApe.getText();
+                    String nom = fm.jtnam.getText();
+                    String contra = fm.jtcontra.getText();
+                    String correo= fm.jtcorreo.getText();
+                    String genero = fm.jtgenero.getText();
+                    String edad = fm.jtedad.getText();
+                    String tlf = fm.tlf.getText();
+                    String cargo = (String) fm.jcargo.getSelectedItem();
+                    try {
+                
                    fw.write(cod + ";" + ape + ";" + nom + ";" + correo + ";" + tlf + ";" + contra + ";" + cargo + ";"+edad+";"+genero+"\r\n");
                     JOptionPane.showMessageDialog(null, 
-                        "Se guardo con exito el registro");    
+                        "Se guardo con exito el registro");
+                    volver();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, 
                        e + "\n\nError al guardar en el archivo"); 
@@ -92,8 +89,61 @@ public class ControlMenuR implements ActionListener{
                     JOptionPane.showMessageDialog(null, 
                        e + "\n\nError al cerrar el archivo"); 
                 }
+                    
+                }
+                
+                
+                
+                
             
+            
+            }
         }
+    }
+    
+    public boolean validar_codigo (int codigo) {
+        FileReader fr = null;
+        boolean error = false;
+        boolean existe = false;
+        try {
+            fr = new FileReader(
+               "src/personas.csv");
+        } catch (Exception e) {
+            error = true;
+            JOptionPane.showMessageDialog(null, 
+                   e + "\n\nError al abrir el archivo"); 
+        }
+        if (!error) {
+            BufferedReader br = new BufferedReader(fr);
+            String linea = "";
+            String tokens[];
+            try {
+                while ((linea=br.readLine()) != null) {                    
+                    //System.out.println(linea);
+                    tokens = linea.split(";");
+                    if(tokens[0].equals(fm.jtCod.getText())){
+                        existe = true;
+                        JOptionPane.showMessageDialog(null, "Ya hay un usuario registrado con ese codigo");
+                        break;
+                }
+                } 
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, 
+                   e + "\n\nError al leer el archivo"); 
+            }
+            try {
+                fr.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, 
+                   e + "\n\nError al cerrar el archivo"); 
+            }
+        }
+        
+        
+        
+        return existe;
+        
+        
     }
 
     private void limpiar() {
