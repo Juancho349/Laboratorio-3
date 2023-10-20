@@ -146,8 +146,10 @@ public class MenuActualizar extends JFrame{
         jbguardar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (jtCod.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,"La cedula no puede estar en blanco");
+                if(jtApe.getText().isEmpty() || jtnam.getText().isEmpty() || jtcontra.getText().isEmpty() || jtcorreo.getText().isEmpty() || jtgenero.getText().isEmpty() ||  jtedad.getText().isEmpty() || tlf.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Los campos no pueden estar vacios");
+                    
+                
                     
                     
                     
@@ -238,7 +240,17 @@ public class MenuActualizar extends JFrame{
                         jtcontra.setEnabled(true);
                         jcargo.setEnabled(true);
                         jtgenero.setEnabled(true);
-                        jtedad.setEnabled(true);   
+                        jtedad.setEnabled(true);
+                        
+                        jtApe.setText(tokens[1]);
+                        jtCod.setText(tokens[0]);
+                        jtnam.setText(tokens[2]);
+                        jtcorreo.setText(tokens[3]);
+                        tlf.setText(tokens[4]);
+                        jtcontra.setText(tokens[5]);
+                        jcargo.setSelectedItem(tokens[6]);
+                        jtedad.setText(tokens[7]);
+                        jtgenero.setText(tokens[8]);
                         
                     }else{
                         lineas.add(linea);
